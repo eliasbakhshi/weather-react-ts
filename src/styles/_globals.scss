@@ -1,0 +1,50 @@
+@import "variables";
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+}
+.container {
+  width: 100% !important;
+  padding: 0 1rem;
+
+  // for small screens
+  @media only screen and (min-width: $sm) {
+    width: $sm !important;
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+
+  // for medium screens
+  @media only screen and (min-width: $md) {
+    width: $md !important;
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+
+  // for large screens
+  @media only screen and (min-width: $l) {
+    width: $l !important;
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+
+  // for x-large screens
+  @media only screen and (min-width: $xl) {
+    width: $xl !important;
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+
+  // for xx-large screens
+  @media only screen and (min-width: $xxl) {
+    width: $xxl !important;
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+}
