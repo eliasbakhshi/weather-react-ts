@@ -14,6 +14,7 @@ function App() {
   return (
     <InfoContext.Provider value={value}>
       <div className='App'>
+        <p>test 2</p>
         <Home></Home>
       </div>
     </InfoContext.Provider>

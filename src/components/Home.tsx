@@ -1,6 +1,6 @@
 import { Info } from "../components/Types";
 import { useContext } from "react";
-import data2 from "../data/req.json";
+import data2 from "../data/data.json";
 import { Card } from "./Card";
 import { useExtractInfo } from "../hooks/useExtractInfo";
 import { useUpdateInfo } from "../hooks/useUpdateInfo";
@@ -10,7 +10,7 @@ import { ContextValues, APIData, UpdatedInfo } from "../components/Types";
 
 export const Home = () => {
   let { data, setData, info, setInfo, loading, setLoading, error, setError }: ContextValues<APIData, UpdatedInfo> = useContext(InfoContext);
-  setData(data2)
+  setData(data2.data[0])
 
   // useFetch({ setData, setLoading, setError });
 

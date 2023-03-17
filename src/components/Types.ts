@@ -1,4 +1,5 @@
 export type APIData = {
+  id: number,
   cod: string;
   message: number;
   cnt: number;
