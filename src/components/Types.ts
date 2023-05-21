@@ -1,5 +1,4 @@
 export type APIData = {
-  id: number,
   cod: string;
   message: number;
   cnt: number;
@@ -70,10 +69,12 @@ export type UpdatedInfo = CardInfo[];
 export type SetAction<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export type ContextValues<T, Y> = {
-  data: T | null;
+  data: null | T;
   setData: SetAction<null | T>;
-  info: Y | null;
+  info: null | Y ;
   setInfo: SetAction<null | Y>;
+  cities: string[];
+  setCities: SetAction<string[]>;
   loading: boolean;
   setLoading: SetAction<boolean>;
   error: string;
@@ -85,3 +86,8 @@ export type GetList<T> = {
   setLoading: SetAction<boolean>;
   setError: SetAction<string>;
 };
+
+export type StorageType<T> = [
+  T | undefined,
+  React.Dispatch<React.SetStateAction<T | undefined>>
+]

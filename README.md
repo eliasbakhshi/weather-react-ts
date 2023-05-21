@@ -1,6 +1,10 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+APIs from Open-Meteo  will be used in this project
+
+https://open-meteo.com/en/docs/geocoding-api
+
+https://open-meteo.com/en/docs/meteofrance-api
 
 ## Available Scripts
 

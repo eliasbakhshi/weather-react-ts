@@ -1,23 +1,30 @@
 import { useState } from "react";
 import { Home } from "./components/Home";
 import { APIData, UpdatedInfo } from "./components/Types";
-import "./App.css";
 import { InfoContext } from "./context/InfoContext";
-import "./styles/main.scss"
+import "./styles/main.scss";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from 'react-query/devtools'
+
+const queryClient = new QueryClient();
+
 function App() {
   const [data, setData] = useState<APIData | null>(null);
   const [info, setInfo] = useState<UpdatedInfo | null>(null);
+  const [cities, setCities] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  let value = { data, setData, info, setInfo, loading, setLoading, error, setError };
+  let value = { data, setData, info, setInfo, cities, setCities, loading, setLoading, error, setError };
 
   return (
-    <InfoContext.Provider value={value}>
-      <div className='App'>
-        <p>test 2</p>
-        <Home></Home>
-      </div>
-    </InfoContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <InfoContext.Provider value={value}>
+        <div className='App'>
+          <Home></Home>
+        </div>
+      </InfoContext.Provider>
+      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+    </QueryClientProvider>
   );
 }
 
