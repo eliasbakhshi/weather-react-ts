@@ -71,7 +71,7 @@ export type SetAction<T> = React.Dispatch<React.SetStateAction<T>>;
 export type ContextValues<T, Y> = {
   data: null | T;
   setData: SetAction<null | T>;
-  info: null | Y ;
+  info: null | Y;
   setInfo: SetAction<null | Y>;
   cities: string[];
   setCities: SetAction<string[]>;
@@ -87,7 +87,18 @@ export type GetList<T> = {
   setError: SetAction<string>;
 };
 
-export type StorageType<T> = [
-  T | undefined,
-  React.Dispatch<React.SetStateAction<T | undefined>>
-]
+export type StorageType<T> = [T | undefined, React.Dispatch<React.SetStateAction<T | undefined>>];
+
+export type CitiesName = {
+  name: string;
+  count?: number;
+}[];
+
+export type CitiesInfo = CitiesName &
+  {
+    latitude: number;
+    longitude: number;
+    hourly?: string;
+    daily?: string;
+    timezone?: "GMT";
+  };
