@@ -102,3 +102,11 @@ export type CitiesInfo = CitiesName &
     daily?: string;
     timezone?: "GMT";
   };
+
+  export type CoordinateResult = {
+    data: {
+      data: {
+        results: CitiesInfo[]
+      }
+    }
+  }

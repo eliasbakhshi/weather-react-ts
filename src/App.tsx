@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 const queryClient = new QueryClient();
 
 function App() {
-  const [data, setData] = useState<APIData | null>(null);
+  const [data, setData] = useState<APIData | null | any>(null);
   const [info, setInfo] = useState<UpdatedInfo | null>(null);
   const [cities, setCities] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
