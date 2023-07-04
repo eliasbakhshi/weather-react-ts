@@ -92,21 +92,29 @@ export type StorageType<T> = [T | undefined, React.Dispatch<React.SetStateAction
 export type CitiesName = {
   name: string;
   count?: number;
-}[];
+};
 
-export type CitiesInfo = CitiesName &
-  {
-    latitude: number;
-    longitude: number;
-    hourly?: string;
-    daily?: string;
-    timezone?: "GMT";
+export type CityCoordinate = {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+};
+
+export type WeatherInfo = {
+  id: Number;
+  name: String;
+  latitude: Number;
+  longitude: Number;
+  timezone: String;
+  hourly: {
+    units: String;
+    temperature_2m: Number[];
+    time: String[];
   };
-
-  export type CoordinateResult = {
-    data: {
-      data: {
-        results: CitiesInfo[]
-      }
-    }
-  }
+  daily: {
+    units: String;
+    temperature_2m: Number[];
+    time: String[];
+  };
+};
