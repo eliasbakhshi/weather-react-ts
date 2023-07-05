@@ -3,59 +3,46 @@
   box-sizing: border-box;
 }
 
+body {
+  padding: 0;
+  margin: 0;
+}
+
 .App {
   display: flex;
   justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .container {
   width: 100% !important;
   padding: 0 1rem;
 }
-@media only screen and (min-width: 600px) {
-  .container {
-    width: 600px !important;
-    overflow: hidden;
-    padding: 0 1rem;
-  }
-}
-@media only screen and (min-width: 765px) {
-  .container {
-    width: 765px !important;
-    overflow: hidden;
-    padding: 0 1rem;
-  }
-}
-@media only screen and (min-width: 990px) {
-  .container {
-    width: 990px !important;
-    overflow: hidden;
-    padding: 0 1rem;
-  }
-}
-@media only screen and (min-width: 1140px) {
-  .container {
-    width: 1140px !important;
-    overflow: hidden;
-    padding: 0 1rem;
-  }
-}
-@media only screen and (min-width: 1320px) {
-  .container {
-    width: 1320px !important;
-    overflow: hidden;
-    padding: 0 1rem;
-  }
-}
 
 .home {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   height: 100vh;
+  width: 100%;
   align-items: center;
+}
+.home .header {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .home .cities {
   display: flex;
+  height: 90%;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.home .cities .card {
+  height: 40%;
+  width: 30%;
 }
 
 .card {

@@ -14,25 +14,15 @@ export const Home = () => {
   const cityName = useRef({} as HTMLInputElement);
   const [cities, setCities] = useLocalStorage<string[]>("cities", []);
 
-  // console.log("cities", cities);
   const citiesName = cities
     ? cities.map((city) => {
         return { name: city, count: 1 };
       })
     : [];
-  // console.log("Coordinates", citiesName);
-  // const { isLoading: coordinateLoading, data: citiesCoordinates } = useGetCoordinates(citiesName);
   let citiesCoordinates = useGetCoordinates(citiesName);
-  console.log("citiesCoordinates", citiesCoordinates);
+  let citiesWeather = useGetWeather(citiesCoordinates);
 
-  // console.log("2Loading", coordinateLoading);
-  // console.log("2", citiesCoordinates);
-
-  // const { isLoading: testLoading, data: weather } = useGetWeather(citiesCoordinates);
-  console.log("useGetWeather 2", useGetWeather(citiesCoordinates));
-
-  // console.log("cities", data);
-
+  // Add city to the list.
   const addCity = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let tempCity = cityName.current.value;
@@ -45,21 +35,20 @@ export const Home = () => {
     }
   };
 
-  let info2: Info | null = useExtractInfo(data);
-  let info3 = useUpdateInfo(info2);
-  // console.log("data", weather);
-  // console.log("info2", info2);
-  // console.log("info3", info3);
-
   return (
     <main className='container home'>
-      <form className='search' onSubmit={addCity}>
-        <input type='text' ref={cityName} placeholder='City Name' name='city' />
-        <button>Add</button>
-      </form>
+      <div className='header'>
+        <form className='search' onSubmit={addCity}>
+          <input type='text' ref={cityName} placeholder='City Name' name='city' />
+          <button>Add</button>
+        </form>
+      </div>
       <div className='cities'>
-        {info3?.map((item) => {
-          return <Card data={item} key={item.daysLater}></Card>;
+        {
+        citiesWeather.map((item) => {
+          console.log("32111111111111111", item.name);
+
+          return item.name != undefined && <Card data={item} key={item.id.toString()} />;
         })}
       </div>
     </main>

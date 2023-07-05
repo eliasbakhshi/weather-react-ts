@@ -1,14 +1,18 @@
-import { CardInfo } from "./Types";
+import { WeatherInfo } from "./Types";
 
-export const Card = <T extends CardInfo>({ data }: { data: T | null }) => {
-  console.log("data", data);
+export const Card = <T extends WeatherInfo>({ data }: { data: T }) => {
 
-  return (
-    <article className='card'>
-      {data?.maxTempDay && <p>maxTempDay: {data?.maxTempDay}</p> }
-      {data?.minTempDay && <p>minTempDay: {data?.minTempDay}</p> }
-      {data?.averageTempDay && <p>averageTempDay: {data?.averageTempDay}</p> }
-      {data?.medianTempDay && <p>medianTempDay: {data?.medianTempDay}</p> }
-    </article>
-  );
+  console.log(data);
+  if (data) {
+    return (
+      <article className='card'>
+        {data.name && <p>name: {data.name}</p>}
+        {data.latitude && <p>latitude: {data.latitude.toString()}</p>}
+        {data.longitude && <p>longitude: {data.longitude.toString()}</p>}
+        {data.timezone && <p>timezone: {data.timezone}</p>}
+      </article>
+    );
+  } else {
+    return <div></div>;
+  }
 };
