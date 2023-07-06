@@ -44,11 +44,8 @@ export const Home = () => {
         </form>
       </div>
       <div className='cities'>
-        {
-        citiesWeather.map((item) => {
-          console.log("32111111111111111", item.name);
-
-          return item.name != undefined && <Card data={item} key={item.id.toString()} />;
+        {citiesWeather.map((item) => {
+          return item.id && <Card data={item} key={item.id.toString()} />;
         })}
       </div>
     </main>
