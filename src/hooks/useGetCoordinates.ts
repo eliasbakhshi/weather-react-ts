@@ -3,7 +3,10 @@ import axios from "axios";
 import { CitiesName, CityCoordinate } from "../components/Types";
 
 const getData = async (citiesName: CitiesName) => {
-  return axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${citiesName.name}&count=${citiesName.count}&language=en&format=json`);
+  if (citiesName.name) {
+
+    return axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${citiesName.name}&count=${citiesName.count}&language=en&format=json`);
+  }
 };
 // Get Coordinate for cities
 export const useGetCoordinates = (citiesName: CitiesName[]): CityCoordinate[] => {

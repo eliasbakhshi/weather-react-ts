@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Home } from "./components/Home";
-import { APIData, UpdatedInfo } from "./components/Types";
+import { APIData, WeatherInfo } from "./components/Types";
 import { InfoContext } from "./context/InfoContext";
 import "./styles/main.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -10,7 +10,7 @@ const queryClient = new QueryClient();
 
 function App() {
   const [data, setData] = useState<APIData | null | any>(null);
-  const [info, setInfo] = useState<UpdatedInfo | null>(null);
+  const [info, setInfo] = useState<WeatherInfo[] | null>(null);
   const [cities, setCities] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

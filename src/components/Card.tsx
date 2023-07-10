@@ -2,8 +2,7 @@ import { WeatherInfo } from "./Types";
 
 export const Card = <T extends WeatherInfo>({ data }: { data: T }) => {
 
-  console.log(data);
-  if (data) {
+  console.log("teeeeeeee", data);
     return (
       <article className='card'>
         {data.name && <p>name: {data.name}</p>}
@@ -12,7 +11,5 @@ export const Card = <T extends WeatherInfo>({ data }: { data: T }) => {
         {data.timezone && <p>timezone: {data.timezone}</p>}
       </article>
     );
-  } else {
-    return <div></div>;
-  }
+
 };
