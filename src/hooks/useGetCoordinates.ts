@@ -8,10 +8,7 @@ const getData = async (cityName: string|undefined) => {
   }
 };
 // Get Coordinate for cities
-export const useGetCoordinates = (citiesName: CitiesName[]| []): { status: string; data: (null | CityCoordinate)[]}| undefined => {
-  if (!citiesName ) {
-    return;
-  }
+export const useGetCoordinates = (citiesName: CitiesName[]): { status: string; data: (null | CityCoordinate)[]} => {
   let status = "";
   let theQueries = useQueries(
     citiesName.map((cityName) => {
@@ -25,7 +22,10 @@ export const useGetCoordinates = (citiesName: CitiesName[]| []): { status: strin
   // Return just the information the is needed.
   let res = theQueries.map((theQuery) => {
     status = theQuery.status;
-    if (status === "success") {
+
+    console.log("theQuery", theQuery);
+
+    if (status === "success" && theQuery.data?.data?.hasOwnProperty("results")) {
       return {
         id: Number(theQuery.data?.data?.results[0].id),
         name: String(theQuery.data?.data?.results[0].name),
