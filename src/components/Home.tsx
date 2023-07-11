@@ -1,5 +1,5 @@
 import { Info } from "../components/Types";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Card } from "./Card";
 import { useExtractInfo } from "../hooks/useExtractInfo";
 import { useUpdateInfo } from "../hooks/useUpdateInfo";
@@ -10,7 +10,7 @@ import { useGetCoordinates } from "../hooks/useGetCoordinates";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const Home = () => {
-  let { data, setData, info, setInfo, loading, setLoading, error, setError }: ContextValues<APIData, WeatherInfo[]> = useContext(InfoContext);
+  let { data, setData, info, setInfo, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[] | null> = useContext(InfoContext);
   const cityName = useRef({} as HTMLInputElement);
   const [cities, setCities] = useLocalStorage<string[]>("cities", []);
 
@@ -20,15 +20,16 @@ export const Home = () => {
       })
     : [];
 
-  const citiesCoordinates = useGetCoordinates(citiesName);
-  let citiesWeather = useGetWeather(citiesCoordinates);
-  console.log("rr", cities);
-  console.log("rr222222222", citiesName);
-  console.log("citiesCoordinates", citiesCoordinates);
-  // console.log("citiesWeather", citiesWeather);
-  // useEffect(() => {
-  //   setInfo(citiesWeather);
-  // }, [citiesWeather]);
+  const { status: coordinatesStatus, data: coordinatesData } = useGetCoordinates(citiesName);
+  // console.log("citiesCoordinates", coordinatesStatus);
+
+  let { status: weatherStatus, data: weatherData } = useGetWeather(coordinatesData);
+  useEffect(() => {
+    if (weatherStatus) {
+      setInfo(weatherData);
+    }
+  }, [weatherStatus]);
+  // console.log("info", info);
 
   // Add city to the list.
   const addCity = (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,7 +38,7 @@ export const Home = () => {
     if (tempCity) {
       if (cities?.length && !cities?.includes(tempCity)) {
         setCities([...cities, tempCity]);
-      } else if (!cities?.length){
+      } else if (!cities?.length) {
         setCities([tempCity]);
       }
     }
@@ -52,8 +53,8 @@ export const Home = () => {
         </form>
       </div>
       <div className='cities'>
-        {citiesWeather.map((item) => {
-          return item.id ? <Card data={item} key={item.id.toString()} /> : "";
+        {info?.map((item) => {
+          return item?.id ? <Card data={item} key={item.id.toString()} /> : "";
         })}
       </div>
     </main>

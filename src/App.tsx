@@ -4,13 +4,13 @@ import { APIData, WeatherInfo } from "./components/Types";
 import { InfoContext } from "./context/InfoContext";
 import "./styles/main.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from 'react-query/devtools'
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const queryClient = new QueryClient();
 
 function App() {
   const [data, setData] = useState<APIData | null | any>(null);
-  const [info, setInfo] = useState<WeatherInfo[] | null>(null);
+  const [info, setInfo] = useState<(null | WeatherInfo)[] | null>(null);
   const [cities, setCities] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

@@ -4,12 +4,12 @@ import { CitiesName, CityCoordinate } from "../components/Types";
 
 const getData = async (citiesName: CitiesName) => {
   if (citiesName.name) {
-
     return axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${citiesName.name}&count=${citiesName.count}&language=en&format=json`);
   }
 };
 // Get Coordinate for cities
-export const useGetCoordinates = (citiesName: CitiesName[]): CityCoordinate[] => {
+export const useGetCoordinates = (citiesName: CitiesName[]): { status: string; data: (null | CityCoordinate)[]} => {
+  let status = "";
   let theQueries = useQueries(
     citiesName.map((cityName) => {
       return {
@@ -19,14 +19,21 @@ export const useGetCoordinates = (citiesName: CitiesName[]): CityCoordinate[] =>
     })
   );
 
+  console.log("theQueries", theQueries);
+  let data = [];
   // Return just the information the is needed.
   let res = theQueries.map((theQuery) => {
-    return {
-      id: Number(theQuery.data?.data?.results[0].id),
-      name: String(theQuery.data?.data?.results[0].name),
-      latitude: Number(theQuery.data?.data?.results[0].latitude),
-      longitude: Number(theQuery.data?.data?.results[0].longitude),
-    };
+    status = theQuery.status;
+    if (status === "success") {
+      return {
+        id: Number(theQuery.data?.data?.results[0].id),
+        name: String(theQuery.data?.data?.results[0].name),
+        latitude: Number(theQuery.data?.data?.results[0].latitude),
+        longitude: Number(theQuery.data?.data?.results[0].longitude),
+      };
+    } else {
+      return null;
+    }
   });
-  return res;
+  return {status: status, data: res};
 };
