@@ -20,8 +20,6 @@ export const useGetWeather = (cityInfo: (null | CityCoordinate)[]): { status: st
   let status = "";
   let weatherInfo = useQueries(
     cityInfo.map((info) => {
-      console.log("info id", info?.id);
-
       return {
         queryKey: ["weather-data", info?.name],
         queryFn: () => getData(info),

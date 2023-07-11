@@ -68,12 +68,14 @@ export type UpdatedInfo = CardInfo[];
 
 export type SetAction<T> = React.Dispatch<React.SetStateAction<T>>;
 
+export type StorageType<T> = [T | [], React.Dispatch<React.SetStateAction<T | []>>];
+
 export type ContextValues<T, Y> = {
   data: null | T;
   setData: SetAction<null | T>;
   info: null | Y;
   setInfo: SetAction<null | Y>;
-  cities: string[];
+  cities: string[]
   setCities: SetAction<string[]>;
   loading: boolean;
   setLoading: SetAction<boolean>;
@@ -87,12 +89,7 @@ export type GetList<T> = {
   setError: SetAction<string>;
 };
 
-export type StorageType<T> = [T | undefined, React.Dispatch<React.SetStateAction<T | undefined>>];
-
-export type CitiesName = {
-  name: string;
-  count?: number;
-};
+export type CitiesName = string;
 
 export type CityCoordinate = {
   id: number;

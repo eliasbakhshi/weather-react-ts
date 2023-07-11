@@ -2,7 +2,6 @@ import { WeatherInfo } from "./Types";
 
 export const Card = <T extends WeatherInfo>({ data }: { data: T }) => {
 
-  console.log("teeeeeeee", data);
     return (
       <article className='card'>
         {data.name && <p>name: {data.name}</p>}

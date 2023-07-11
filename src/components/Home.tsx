@@ -8,21 +8,27 @@ import { ContextValues, APIData, WeatherInfo } from "../components/Types";
 import { useGetWeather } from "../hooks/useGetWeather";
 import { useGetCoordinates } from "../hooks/useGetCoordinates";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { Search } from "./Search";
 
 export const Home = () => {
-  let { data, setData, info, setInfo, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[] | null> = useContext(InfoContext);
-  const cityName = useRef({} as HTMLInputElement);
-  const [cities, setCities] = useLocalStorage<string[]>("cities", []);
+  let { data, setData, info, setInfo, cities, setCities, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[] | null> = useContext(InfoContext);
 
-  const citiesName = cities
-    ? cities.map((city) => {
-        return { name: city, count: 1 };
-      })
-    : [];
 
-  const { status: coordinatesStatus, data: coordinatesData } = useGetCoordinates(citiesName);
-  // console.log("citiesCoordinates", coordinatesStatus);
 
+  // const citiesName = cities
+  //   ? cities.map((city) => {
+  //       return { name: city, count: 1 };
+  //     })
+  //   : [];
+
+  console.log("cities", cities);
+
+  // Get the coordination for the cities.
+  const { status: coordinatesStatus, data: coordinatesData } = useGetCoordinates(cities);
+  console.log("citiesCoordinates", coordinatesStatus);
+  console.log("coordinatesData", coordinatesData);
+
+  // Set the weather for the cities.
   let { status: weatherStatus, data: weatherData } = useGetWeather(coordinatesData);
   useEffect(() => {
     if (weatherStatus) {
@@ -31,26 +37,12 @@ export const Home = () => {
   }, [weatherStatus]);
   // console.log("info", info);
 
-  // Add city to the list.
-  const addCity = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    let tempCity = cityName.current.value;
-    if (tempCity) {
-      if (cities?.length && !cities?.includes(tempCity)) {
-        setCities([...cities, tempCity]);
-      } else if (!cities?.length) {
-        setCities([tempCity]);
-      }
-    }
-  };
 
   return (
     <main className='container home'>
       <div className='header'>
-        <form className='search' onSubmit={addCity}>
-          <input type='text' ref={cityName} placeholder='City Name' name='city' />
-          <button>Add</button>
-        </form>
+        <Search />
+
       </div>
       <div className='cities'>
         {info?.map((item) => {
