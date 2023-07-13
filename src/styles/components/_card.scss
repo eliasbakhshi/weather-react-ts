@@ -2,6 +2,15 @@
   padding: 1em;
   background-color: $main-color;
   border-radius: $radius;
-  width: 18%;
+  width: 25%;
+  min-height: 2rem;
+  max-height: 20rem;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  .temperature {
+    font-size: 2.5rem;
+  }
+  .city-name {
+    font-size: .8em;
+    opacity: .7;
+  }
 }

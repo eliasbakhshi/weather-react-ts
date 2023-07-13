@@ -29,7 +29,7 @@ export const useGetWeather = (cityInfo: (null | CityCoordinate)[]): { status: st
   );
 
   // Return just the information the is needed.
-  let info = weatherInfo.map((weather) => {
+  let data = weatherInfo.map((weather) => {
     status = weather.status;
     if (status === "success") {
       return {
@@ -53,6 +53,8 @@ export const useGetWeather = (cityInfo: (null | CityCoordinate)[]): { status: st
       return null;
     }
   });
+  console.log("data 2", data);
 
-  return { status: status, data: info };
+
+  return { status: status, data };
 };

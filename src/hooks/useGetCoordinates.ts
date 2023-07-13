@@ -23,8 +23,6 @@ export const useGetCoordinates = (citiesName: CitiesName[]): { status: string; d
   let res = theQueries.map((theQuery) => {
     status = theQuery.status;
 
-    console.log("theQuery", theQuery);
-
     if (status === "success" && theQuery.data?.data?.hasOwnProperty("results")) {
       return {
         id: Number(theQuery.data?.data?.results[0].id),

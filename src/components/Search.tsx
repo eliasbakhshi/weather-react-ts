@@ -1,13 +1,9 @@
-
-
-import { useContext, useEffect, useRef, useState } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useContext, useRef } from "react";
 
 import { ContextValues, APIData, WeatherInfo } from "../components/Types";
 import { InfoContext } from "../context/InfoContext";
 
 export const Search = () => {
-
   let { data, setData, info, setInfo, cities, setCities, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[] | null> = useContext(InfoContext);
 
   const cityName = useRef({} as HTMLInputElement);
@@ -27,8 +23,8 @@ export const Search = () => {
 
   return (
     <form className='search' onSubmit={addCity}>
-          <input type='text' ref={cityName} placeholder='City Name' name='city' />
-          <button>Add</button>
-        </form>
-  )
-}
+      <input type='text' ref={cityName} placeholder='City Name' name='city' />
+      <button>Add</button>
+    </form>
+  );
+};
