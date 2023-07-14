@@ -1,0 +1,28 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  height: 5rem;
+  width: 15rem;
+  z-index: 10;
+  position: relative;
+  align-items: center;
+
+  > form {
+    width: 100%;
+    background-color: green;
+    display: flex;
+    height: 2rem;
+    input[type="text"] {
+      text-indent: .5rem;
+      width: 100%;
+    }
+
+  }
+  > .result {
+    position: absolute;
+    top: 2rem;
+    width: 100%;
+    background-color: white;
+    padding: .5rem;
+  }
+}

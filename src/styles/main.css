@@ -56,4 +56,31 @@ body {
 .card .city-name {
   font-size: 0.8em;
   opacity: 0.7;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  height: 5rem;
+  width: 15rem;
+  z-index: 10;
+  position: relative;
+  align-items: center;
+}
+.search > form {
+  width: 100%;
+  background-color: green;
+  display: flex;
+  height: 2rem;
+}
+.search > form input[type=text] {
+  text-indent: 0.5rem;
+  width: 100%;
+}
+.search > .result {
+  position: absolute;
+  top: 2rem;
+  width: 100%;
+  background-color: white;
+  padding: 0.5rem;
 }/*# sourceMappingURL=main.css.map */

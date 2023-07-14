@@ -53,7 +53,6 @@ export const useGetWeather = (cityInfo: (null | CityCoordinate)[]): { status: st
       return null;
     }
   });
-  console.log("data 2", data);
 
 
   return { status: status, data };
