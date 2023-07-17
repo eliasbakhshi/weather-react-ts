@@ -126,9 +126,3 @@ export type CityData = {
   state: string;
   admin1?: string;
 };
-export type CityResult =
-  | {
-      data: CityData[];
-      status: string;
-    }
-  | undefined;

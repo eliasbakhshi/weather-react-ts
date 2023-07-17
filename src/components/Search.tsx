@@ -1,5 +1,5 @@
 import { useContext, useRef, useEffect } from "react";
-import { ContextValues, APIData, WeatherInfo, CityResult } from "../components/Types";
+import { ContextValues, APIData, WeatherInfo, CityData } from "../components/Types";
 import { InfoContext } from "../context/InfoContext";
 import { useGetCity } from "../hooks/useGetCity";
 
@@ -9,42 +9,51 @@ export const Search = () => {
   const cityName = useRef({} as HTMLInputElement);
 
   let { status: statusResult, data: searchResult } = useGetCity("karlstad");
-  console.log("searchResult", searchResult);
 
   // Add city to the list.
-  const addCity = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    let tempCity = cityName.current.value;
+  const addCity = (tempCity: string) => {
     if (tempCity) {
       if (cities?.length && !cities?.includes(tempCity)) {
         setCities([...cities, tempCity]);
       } else if (!cities?.length) {
         setCities([tempCity]);
       }
-      cityName.current.value = "";
+      return true;
+    } else {
+      return false;
     }
   };
+  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (addCity(cityName.current.value)) cityName.current.value = "";
+  };
 
-  // useEffect(() => {
-  //   if (statusResult === "success") {
-  //     setCityResult(searchResult);
-  //   }
-  // }, [statusResult]);
+  useEffect(() => {
+    // Update the search result
+    if (statusResult === "success") {
+      // setCityResult(searchResult);
+      setCityResult([]);
+    }
+  }, [statusResult]);
 
   console.log("cityResult", cityResult);
 
   return (
     <div className='search'>
-      <form onSubmit={addCity}>
+      <form onSubmit={submitForm}>
         <input type='text' ref={cityName} placeholder='City Name' name='city' />
         <input type='submit' value='Add' />
       </form>
       <div className='result'>
-        {/* {cityResult
-          ? cityResult.data.map((res: CityResult) => {
-              return <p>{res["name"]}</p>;
+        {cityResult
+          ? cityResult.map((res: CityData) => {
+              return (
+                <p onClick={() => submitForm}>
+                  {res["name"]} , {res["country"]}
+                </p>
+              );
             })
-          : ""} */}
+          : ""}
       </div>
     </div>
   );
