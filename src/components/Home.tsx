@@ -10,12 +10,12 @@ export const Home = () => {
   let { data, setData, info, setInfo, cities, setCities, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[] | null> = useContext(InfoContext);
 
   // Get the coordination for the cities.
-  const { status: coordinatesStatus, data: coordinatesData } = useGetCoordinates(cities);
+  // const { status: coordinatesStatus, data: coordinatesData } = useGetCoordinates(cities);
   // console.log("citiesCoordinates", coordinatesStatus);
   // console.log("coordinatesData", coordinatesData);
 
   // Set the weather for the cities.
-  let { status: weatherStatus, data: weatherData } = useGetWeather(coordinatesData);
+  let { status: weatherStatus, data: weatherData } = useGetWeather(cities);
   // console.log("weatherData", weatherData);
   // console.log("weatherStatus", weatherStatus);
 
@@ -24,7 +24,7 @@ export const Home = () => {
       setInfo(weatherData);
     }
   }, [weatherStatus]);
-  // console.log("info", info);
+  console.log("info", info);
 
   return (
     <main className='container home'>

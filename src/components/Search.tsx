@@ -1,5 +1,5 @@
 import { useContext, useRef, useEffect } from "react";
-import { ContextValues, APIData, WeatherInfo, CityData } from "../components/Types";
+import { ContextValues, APIData, WeatherInfo, CityData, CityList } from "../components/Types";
 import { InfoContext } from "../context/InfoContext";
 import { useGetCity } from "../hooks/useGetCity";
 
@@ -11,32 +11,48 @@ export const Search = () => {
   let { status: statusResult, data: searchResult } = useGetCity("karlstad");
 
   // Add city to the list.
-  const addCity = (tempCity: string) => {
-    if (tempCity) {
-      if (cities?.length && !cities?.includes(tempCity)) {
-        setCities([...cities, tempCity]);
+  const addCity = (newCity: CityList) => {
+    console.log("newCity", newCity);
+    console.log("wwww");
+
+
+    if (newCity) {
+
+      if (cities?.length && !cities?.includes(newCity)) {
+        setCities([...cities, newCity]);
       } else if (!cities?.length) {
-        setCities([tempCity]);
+        setCities([newCity]);
       }
       return true;
     } else {
       return false;
     }
   };
+
+  console.log("cities", cities);
+
+  // Add city from the search result
+  const addCitySearchResult = (e: React.MouseEvent<HTMLElement>) => {
+    let target = e.target as HTMLButtonElement;
+    let test = target?.dataset?.info !== undefined ? target.dataset.info : {};
+    console.log(JSON.parse(decodeURIComponent(test.toString())));
+    let data = JSON.parse(decodeURIComponent(test.toString()))
+    addCity(data)
+  };
+
+  // When form submits
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (addCity(cityName.current.value)) cityName.current.value = "";
+    // if (addCity(cityName.current.value)) cityName.current.value = "";
   };
 
   useEffect(() => {
     // Update the search result
     if (statusResult === "success") {
-      // setCityResult(searchResult);
-      setCityResult([]);
+      setCityResult(searchResult);
+      // setCityResult([]);
     }
   }, [statusResult]);
-
-  console.log("cityResult", cityResult);
 
   return (
     <div className='search'>
@@ -47,9 +63,17 @@ export const Search = () => {
       <div className='result'>
         {cityResult
           ? cityResult.map((res: CityData) => {
+              let dataInfo = encodeURIComponent(
+                JSON.stringify({
+                  id: res["id"],
+                  name: res["name"],
+                  latitude: res["latitude"],
+                  longitude: res["longitude"],
+                })
+              );
               return (
-                <p onClick={() => submitForm}>
-                  {res["name"]} , {res["country"]}
+                <p onClick={addCitySearchResult} data-info={dataInfo} key={res['id']}>
+                  {res["name"]} , {res["state"]}
                 </p>
               );
             })

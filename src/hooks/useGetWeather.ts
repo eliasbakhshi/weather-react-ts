@@ -1,8 +1,13 @@
 import { useQueries } from "react-query";
 import axios from "axios";
-import { CityCoordinate, WeatherInfo } from "../components/Types";
+import { CityCoordinate, WeatherInfo, CityList } from "../components/Types";
 
-const getData = (cityInfo: CityCoordinate | null) => {
+
+// TODO: - Check if user want to choose the same city that already is in the list or not
+
+
+
+const getData = (cityInfo: CityList | null) => {
   if (cityInfo?.id) {
     return axios.get(`https://api.open-meteo.com/v1/meteofrance?latitude=${cityInfo.latitude}&longitude=${cityInfo.longitude}&hourly=temperature_2m&daily=temperature_2m_max&timezone=GMT`).then((info) => {
       // Return data with extra information.
@@ -16,7 +21,7 @@ const getData = (cityInfo: CityCoordinate | null) => {
 };
 
 // Get the weather information from the API.
-export const useGetWeather = (cityInfo: (null | CityCoordinate)[]): { status: string; data: (null | WeatherInfo)[] } => {
+export const useGetWeather = (cityInfo: (null | CityList)[]): { status: string; data: (null | WeatherInfo)[] } => {
   let status = "";
   let weatherInfo = useQueries(
     cityInfo.map((info) => {
@@ -25,7 +30,7 @@ export const useGetWeather = (cityInfo: (null | CityCoordinate)[]): { status: st
         queryFn: () => getData(info),
         enabled: !!info?.id,
       };
-    }) ?? []
+    })
   );
 
   // Return just the information the is needed.

@@ -77,8 +77,8 @@ export type ContextValues<T, Y> = {
   setInfo: SetAction<null | Y>;
   cityResult: CityData[];
   setCityResult: SetAction<CityData[]>;
-  cities: string[];
-  setCities: SetAction<string[]>;
+  cities: CityList[];
+  setCities: SetAction<CityList[]>;
   loading: boolean;
   setLoading: SetAction<boolean>;
   error: string;
@@ -125,4 +125,11 @@ export type CityData = {
   country: string;
   state: string;
   admin1?: string;
+};
+
+export type CityList = {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
 };
