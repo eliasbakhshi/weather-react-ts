@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Home } from "./components/Home";
-import { APIData, WeatherInfo, CityList, CityData } from "./components/Types";
+import { WeatherInfo, CityList, CityData } from "./components/Types";
 import { InfoContext } from "./context/InfoContext";
 import "./styles/main.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -12,13 +12,12 @@ const queryClient = new QueryClient();
 
 function App() {
   console.log("--------------------------------------------------");
-  const [data, setData] = useState<APIData | null | any>(null);
   const [info, setInfo] = useState<(null | WeatherInfo)[]>([]);
   const [cityResult, setCityResult] = useState<CityData[]>([]);
   const [cities, setCities] = useLocalStorage<CityList[]>("cities", []);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  let value = { cities, setCities, data, setData, info, cityResult, setCityResult, setInfo, loading, setLoading, error, setError };
+  let value = { cities, setCities, info, cityResult, setCityResult, setInfo, loading, setLoading, error, setError };
 
   return (
     <QueryClientProvider client={queryClient}>

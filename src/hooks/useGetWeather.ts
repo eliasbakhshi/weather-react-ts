@@ -1,9 +1,9 @@
 import { useQueries } from "react-query";
 import axios from "axios";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect } from "react";
 import { InfoContext } from "../context/InfoContext";
 
-import { CityCoordinate, WeatherInfo, CityList, ContextValues, APIData } from "../components/Types";
+import { CityList, ContextValues } from "../components/Types";
 
 const getData = (cityInfo: CityList | null) => {
   if (cityInfo?.id) {
@@ -22,7 +22,7 @@ const getData = (cityInfo: CityList | null) => {
 export const useGetWeather = (cityInfo: (null | CityList)[]): void => {
   console.log("cityInfo", cityInfo);
 
-  let { data, setData, info, setInfo, cities, setCities, loading, setLoading, cityResult, setCityResult, error, setError }: ContextValues = useContext(InfoContext);
+  let { setInfo }: ContextValues = useContext(InfoContext);
 
   let status = "";
   let weatherInfo = useQueries(
@@ -61,15 +61,9 @@ export const useGetWeather = (cityInfo: (null | CityList)[]): void => {
     }
   });
 
-  console.log("res", res);
-
   useEffect(() => {
     if (status) {
       setInfo(res);
     }
   }, [status]);
-  console.log("info", info);
-  console.log("cities", cities);
-
-  // return { status: status, data };
 };
