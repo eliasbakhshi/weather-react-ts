@@ -11,8 +11,9 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 const queryClient = new QueryClient();
 
 function App() {
+  console.log("--------------------------------------------------");
   const [data, setData] = useState<APIData | null | any>(null);
-  const [info, setInfo] = useState<(null | WeatherInfo)[] | null>(null);
+  const [info, setInfo] = useState<(null | WeatherInfo)[]>([]);
   const [cityResult, setCityResult] = useState<CityData[]>([]);
   const [cities, setCities] = useLocalStorage<CityList[]>("cities", []);
   const [loading, setLoading] = useState(true);

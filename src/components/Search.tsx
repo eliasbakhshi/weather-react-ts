@@ -7,7 +7,7 @@ import { useGetCity } from "../hooks/useGetCity";
 // TODO: - Put info of the first searched city in the search bar with a the name as placeholder
 
 export const Search = () => {
-  let { data, setData, info, setInfo, cities, setCities, cityResult, setCityResult, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[] | null> = useContext(InfoContext);
+  let { data, setData, info, setInfo, cities, setCities, cityResult, setCityResult, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[]> = useContext(InfoContext);
   const searchedCity = useRef({} as HTMLInputElement);
   const resultList = useRef({} as HTMLDivElement);
 
@@ -15,6 +15,8 @@ export const Search = () => {
 
   // Add city to the list.
   const addCity = (newCity: CityList) => {
+    console.log("newCity 22222", newCity);
+
     if (newCity) {
       if (cities?.length && !cities?.includes(newCity)) {
         setCities([...cities, newCity]);
@@ -28,10 +30,10 @@ export const Search = () => {
   };
 
   // Add city from the search result
-  const addCitySearchResult = (e: React.MouseEvent<HTMLElement>) => {
-    let target = e.target as HTMLButtonElement;
+  const addCitySearchResult = (e: React.MouseEvent<HTMLParagraphElement>) => {
+    let target = e.target as HTMLParagraphElement;
     let test = target?.dataset?.info !== undefined ? target.dataset.info : {};
-    // console.log(JSON.parse(decodeURIComponent(test.toString())));
+    console.log("city1111111111", JSON.parse(decodeURIComponent(test.toString())));
     let data = JSON.parse(decodeURIComponent(test.toString()));
     addCity(data);
     setCityResult([])

@@ -7,7 +7,7 @@ import { useGetCoordinates } from "../hooks/useGetCoordinates";
 import { Search } from "./Search";
 
 export const Home = () => {
-  let { data, setData, info, setInfo, cities, setCities, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[] | null> = useContext(InfoContext);
+  let { data, setData, info, setInfo, cities, setCities, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[]> = useContext(InfoContext);
 
   // Get the coordination for the cities.
   // const { status: coordinatesStatus, data: coordinatesData } = useGetCoordinates(cities);
