@@ -7,7 +7,7 @@ import { useGetCity } from "../hooks/useGetCity";
 // TODO: - Put info of the first searched city in the search bar with a the name as placeholder
 
 export const Search = () => {
-  let { data, setData, info, setInfo, cities, setCities, cityResult, setCityResult, loading, setLoading, error, setError }: ContextValues<APIData, (null | WeatherInfo)[]> = useContext(InfoContext);
+  let { data, setData, info, setInfo, cities, setCities, cityResult, setCityResult, loading, setLoading, error, setError }: ContextValues = useContext(InfoContext);
   const searchedCity = useRef({} as HTMLInputElement);
   const resultList = useRef({} as HTMLDivElement);
 
@@ -18,10 +18,14 @@ export const Search = () => {
     console.log("newCity 22222", newCity);
 
     if (newCity) {
-      if (cities?.length && !cities?.includes(newCity)) {
+      if (cities?.length && !cities?.find((city) => city.id === newCity.id)) {
         setCities([...cities, newCity]);
+        alert("ifififififififif");
       } else if (!cities?.length) {
+        alert("elseelseelseelseelse");
         setCities([newCity]);
+      } else if (cities?.find((city) => city.id === newCity.id)) {
+        alert("Already exists");
       }
       return true;
     } else {
@@ -36,7 +40,8 @@ export const Search = () => {
     console.log("city1111111111", JSON.parse(decodeURIComponent(test.toString())));
     let data = JSON.parse(decodeURIComponent(test.toString()));
     addCity(data);
-    setCityResult([])
+    setCityResult([]);
+    searchedCity.current.value = "";
   };
 
   // When form submits

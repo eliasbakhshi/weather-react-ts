@@ -4,7 +4,7 @@ import { WeatherInfo, ContextValues, APIData } from "../components/Types";
 
 // TODO: - Delete option can be added to the card
 export const Card = <T extends WeatherInfo>({ data }: { data: T }) => {
-  let { info, setInfo, cities, setCities, loading, setLoading, cityResult, setCityResult, error, setError }: ContextValues<APIData, (null | WeatherInfo)[]> = useContext(InfoContext);
+  let { info, setInfo, cities, setCities, loading, setLoading, cityResult, setCityResult, error, setError }: ContextValues = useContext(InfoContext);
 
   const removeCity = (e: React.MouseEvent<HTMLParagraphElement>) => {
     let target = e.target as HTMLParagraphElement;

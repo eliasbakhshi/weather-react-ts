@@ -5,10 +5,6 @@ import { InfoContext } from "../context/InfoContext";
 
 import { CityCoordinate, WeatherInfo, CityList, ContextValues, APIData } from "../components/Types";
 
-
-
-
-
 const getData = (cityInfo: CityList | null) => {
   if (cityInfo?.id) {
     return axios.get(`https://api.open-meteo.com/v1/meteofrance?latitude=${cityInfo.latitude}&longitude=${cityInfo.longitude}&hourly=temperature_2m&daily=temperature_2m_max&timezone=GMT`).then((info) => {
@@ -26,7 +22,7 @@ const getData = (cityInfo: CityList | null) => {
 export const useGetWeather = (cityInfo: (null | CityList)[]): void => {
   console.log("cityInfo", cityInfo);
 
-  let { data, setData, info, setInfo, cities, setCities, loading, setLoading, cityResult, setCityResult, error, setError }: ContextValues<APIData, (null | WeatherInfo)[]> = useContext(InfoContext);
+  let { data, setData, info, setInfo, cities, setCities, loading, setLoading, cityResult, setCityResult, error, setError }: ContextValues = useContext(InfoContext);
 
   let status = "";
   let weatherInfo = useQueries(
@@ -67,15 +63,13 @@ export const useGetWeather = (cityInfo: (null | CityList)[]): void => {
 
   console.log("res", res);
 
-
-   useEffect(() => {
+  useEffect(() => {
     if (status) {
       setInfo(res);
     }
   }, [status]);
   console.log("info", info);
   console.log("cities", cities);
-
 
   // return { status: status, data };
 };

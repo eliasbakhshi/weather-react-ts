@@ -70,11 +70,11 @@ export type SetAction<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export type StorageType<T> = [T | [], React.Dispatch<React.SetStateAction<T | []>>];
 
-export type ContextValues<T, Y> = {
-  data: null | T;
-  setData: SetAction<null | T>;
-  info: Y;
-  setInfo: SetAction<Y>;
+export type ContextValues<> = {
+  data: null | APIData;
+  setData: SetAction<null | APIData>;
+  info: (null | WeatherInfo)[];
+  setInfo: SetAction<(null | WeatherInfo)[]>;
   cityResult: CityData[];
   setCityResult: SetAction<CityData[]>;
   cities: CityList[];
