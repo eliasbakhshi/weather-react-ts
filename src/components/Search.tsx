@@ -31,9 +31,10 @@ export const Search = () => {
   const addCitySearchResult = (e: React.MouseEvent<HTMLElement>) => {
     let target = e.target as HTMLButtonElement;
     let test = target?.dataset?.info !== undefined ? target.dataset.info : {};
-    console.log(JSON.parse(decodeURIComponent(test.toString())));
+    // console.log(JSON.parse(decodeURIComponent(test.toString())));
     let data = JSON.parse(decodeURIComponent(test.toString()));
     addCity(data);
+    setCityResult([])
   };
 
   // When form submits
