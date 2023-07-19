@@ -15,16 +15,17 @@ export const Home = () => {
   // console.log("coordinatesData", coordinatesData);
 
   // Set the weather for the cities.
-  let { status: weatherStatus, data: weatherData } = useGetWeather(cities);
+
+  useGetWeather(cities);
   // console.log("weatherData", weatherData);
   // console.log("weatherStatus", weatherStatus);
 
-  useEffect(() => {
-    if (weatherStatus) {
-      setInfo(weatherData);
-    }
-  }, [weatherStatus]);
-  console.log("info", info);
+  // useEffect(() => {
+  //   if (weatherStatus) {
+  //     setInfo(weatherData);
+  //   }
+  // }, [weatherStatus]);
+  // console.log("info", info);
 
   return (
     <main className='container home'>

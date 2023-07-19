@@ -1,9 +1,11 @@
 import { useQueries } from "react-query";
 import axios from "axios";
-import { CityCoordinate, WeatherInfo, CityList } from "../components/Types";
+import { useContext, useEffect, useRef, useState } from "react";
+import { InfoContext } from "../context/InfoContext";
+
+import { CityCoordinate, WeatherInfo, CityList, ContextValues, APIData } from "../components/Types";
 
 
-// TODO: - Check if user want to choose the same city that already is in the list or not
 
 
 
@@ -21,7 +23,11 @@ const getData = (cityInfo: CityList | null) => {
 };
 
 // Get the weather information from the API.
-export const useGetWeather = (cityInfo: (null | CityList)[]): { status: string; data: (null | WeatherInfo)[] } => {
+export const useGetWeather = (cityInfo: (null | CityList)[]): void => {
+  console.log("cityInfo", cityInfo);
+  
+  let { data, setData, info, setInfo, cities, setCities, loading, setLoading, cityResult, setCityResult, error, setError }: ContextValues<APIData, (null | WeatherInfo)[] | null> = useContext(InfoContext);
+
   let status = "";
   let weatherInfo = useQueries(
     cityInfo.map((info) => {
@@ -34,7 +40,7 @@ export const useGetWeather = (cityInfo: (null | CityList)[]): { status: string; 
   );
 
   // Return just the information the is needed.
-  let data = weatherInfo.map((weather) => {
+  let res = weatherInfo.map((weather) => {
     status = weather.status;
     if (status === "success") {
       return {
@@ -59,6 +65,13 @@ export const useGetWeather = (cityInfo: (null | CityList)[]): { status: string; 
     }
   });
 
+   useEffect(() => {
+    if (status) {
+      setInfo(res);
+    }
+  }, [status]);
+  console.log("info", info);
 
-  return { status: status, data };
+
+  // return { status: status, data };
 };

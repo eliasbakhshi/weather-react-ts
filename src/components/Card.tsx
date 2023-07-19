@@ -1,5 +1,7 @@
 import { WeatherInfo } from "./Types";
 
+
+// TODO: - Delete option can be added to the card
 export const Card = <T extends WeatherInfo>({ data }: { data: T }) => {
 
   console.log("data", data.daily.temperature_2m[0][0]);
