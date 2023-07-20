@@ -30,7 +30,7 @@ export type WeatherInfo = {
   timezone: String;
   hourly: {
     units: String;
-    temperature_2m: number[];
+    temperature_2m: number[][];
     time: String[];
   };
   daily: {

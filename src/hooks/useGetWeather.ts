@@ -10,27 +10,27 @@ const getData = (cityInfo: CityList | null) => {
     return axios.get(`https://api.open-meteo.com/v1/meteofrance?latitude=${cityInfo.latitude}&longitude=${cityInfo.longitude}&hourly=temperature_2m&daily=temperature_2m_max&timezone=GMT`).then((info) => {
       // Return data with extra information.
       return {
+        ...info.data,
         id: Number(cityInfo.id),
         name: String(cityInfo.name),
-        data: info.data,
       };
     });
   }
 };
 
 // Get the weather information from the API.
-export const useGetWeather = (cityInfo: (null | CityList)[]): void => {
-  console.log("cityInfo", cityInfo);
-
-  let { setInfo }: ContextValues = useContext(InfoContext);
+export const useGetWeather = () : void => {
+  // console.log("cityInfo", cityInfo);
+  let { setInfo, cities }: ContextValues = useContext(InfoContext);
 
   let status = "";
   let weatherInfo = useQueries(
-    cityInfo.map((info) => {
-      return {
-        queryKey: ["weather-data", info?.name],
+    cities.map((info) => {
+    return {
+      queryKey: ["weather-data", info?.name],
         queryFn: () => getData(info),
         enabled: !!info?.id,
+        cacheTime: 1
       };
     })
   );
@@ -42,18 +42,18 @@ export const useGetWeather = (cityInfo: (null | CityList)[]): void => {
       return {
         id: Number(weather.data?.id),
         name: String(weather.data?.name),
-        latitude: Number(weather.data?.data?.latitude),
-        longitude: Number(weather.data?.data?.longitude),
-        timezone: String(weather.data?.data?.timezone),
+        latitude: Number(weather.data?.latitude),
+        longitude: Number(weather.data?.longitude),
+        timezone: String(weather.data?.timezone),
         hourly: {
-          units: String(weather.data?.data?.hourly_units.temperature_2m),
-          temperature_2m: Array(weather.data?.data?.hourly.temperature_2m),
-          time: Array(weather.data?.data?.hourly.time),
+          units: String(weather.data?.hourly_units.temperature_2m),
+          temperature_2m: Array(weather.data?.hourly.temperature_2m),
+          time: Array(weather.data?.hourly.time),
         },
         daily: {
-          units: String(weather.data?.data?.daily_units.temperature_2m_max),
-          temperature_2m: Array(weather.data?.data?.daily.temperature_2m_max),
-          time: Array(weather.data?.data?.daily.time),
+          units: String(weather.data?.daily_units.temperature_2m_max),
+          temperature_2m: Array(weather.data?.daily.temperature_2m_max),
+          time: Array(weather.data?.daily.time),
         },
       };
     } else {
@@ -62,7 +62,7 @@ export const useGetWeather = (cityInfo: (null | CityList)[]): void => {
   });
 
   useEffect(() => {
-    if (status) {
+    if (status === "success") {
       setInfo(res);
     }
   }, [status]);

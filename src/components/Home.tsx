@@ -6,8 +6,8 @@ import { useGetWeather } from "../hooks/useGetWeather";
 import { Search } from "./Search";
 
 export const Home = () => {
-  let { info, cities }: ContextValues = useContext(InfoContext);
-  useGetWeather(cities);
+  let { info }: ContextValues = useContext(InfoContext);
+  useGetWeather();
 
   return (
     <main className='container home'>
