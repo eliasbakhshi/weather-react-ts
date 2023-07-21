@@ -7,7 +7,7 @@ import { CityList, ContextValues } from "../components/Types";
 
 const getData = (cityInfo: CityList | null) => {
   if (cityInfo?.id) {
-    return axios.get(`https://api.open-meteo.com/v1/meteofrance?latitude=${cityInfo.latitude}&longitude=${cityInfo.longitude}&hourly=temperature_2m&daily=temperature_2m_max&timezone=GMT`).then((info) => {
+    return axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${cityInfo.latitude}&longitude=${cityInfo.longitude}&hourly=temperature_2m&daily=temperature_2m_max&timezone=GMT`).then((info) => {
       // Return data with extra information.
       return {
         ...info.data,
@@ -37,6 +37,8 @@ export const useGetWeather = () : void => {
 
   // Return just the information the is needed.
   let res = weatherInfo.map((weather) => {
+    console.log("weather", weather);
+
     status = weather.status;
     if (status === "success") {
       return {
