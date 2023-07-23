@@ -2,8 +2,10 @@ import { useContext, useRef } from "react";
 import { ContextValues, CityData, CityList } from "../components/Types";
 import { InfoContext } from "../context/InfoContext";
 import { useGetCity } from "../hooks/useGetCity";
+import searchIcon from "../img/search.svg";
 
 // TODO: - Put info of the first searched city in the search bar with a the name as placeholder
+// TODO: - Optimize if there is any thing to show and then show something because of the render issue.
 
 export const Search = () => {
   let { cities, setCities, cityResult, setCityResult }: ContextValues = useContext(InfoContext);
@@ -18,7 +20,7 @@ export const Search = () => {
       if (!cities?.find((city) => city.id === newCity.id)) {
         setCities([...cities, newCity]);
       } else {
-        alert("The city already exists in the list.")
+        alert("The city already exists in the list.");
       }
       return true;
     } else {
@@ -39,14 +41,15 @@ export const Search = () => {
   // When form submits
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (addCity(cityName.current.value)) cityName.current.value = "";
+    searchedCity.current.value = cityResult[0].name;
+    searchedCityData.refetch()
   };
 
   return (
     <div className='search'>
       <form onSubmit={submitForm}>
         <input type='text' ref={searchedCity} placeholder='City Name' name='city' onChange={() => searchedCityData.refetch()} />
-        <input type='submit' value='Add' />
+        <img src={searchIcon} onClick={() => searchedCityData.refetch()} />
       </form>
       <div className='result' ref={resultList}>
         {cityResult

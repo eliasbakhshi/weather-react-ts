@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { InfoContext } from "../context/InfoContext";
 import { WeatherInfo, ContextValues } from "../components/Types";
+import deleteIcon from "../img/delete.svg"
 
 // TODO: - Delete option can be added to the card
 export const Card = <T extends WeatherInfo>({ data }: { data: T }) => {
@@ -20,9 +21,7 @@ export const Card = <T extends WeatherInfo>({ data }: { data: T }) => {
   };
   return (
     <article className='card'>
-      <p onClick={removeCity} id={data.id.toString()}>
-        delete
-      </p>
+      <img src={deleteIcon} alt="Delete city" onClick={removeCity} id={data.id.toString()} />
       {data.name && (
         <p className='temperature'>
           {Math.floor(data.daily.temperature_2m[0][0]).toString()} {data.daily.units}

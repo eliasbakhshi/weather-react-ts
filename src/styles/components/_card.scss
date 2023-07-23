@@ -2,13 +2,23 @@
   padding: 1em;
   background-color: $main-color;
   border-radius: $radius;
-  width: 25%;
-  min-height: 2rem;
-  max-height: 20rem;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  width: 25rem;
+  height: 10rem;
+  box-shadow: $shadow;
+  position: relative;
+  > img {
+    height: 3rem;
+    width: 3rem;
+    padding: .5rem;
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    display: flex;
+    background-position: center center;
+  }
   .temperature {
     font-size: 2.5rem;
-  }
+    margin: 1.2rem 0;  }
   .city-name {
     font-size: .8em;
     opacity: .7;
