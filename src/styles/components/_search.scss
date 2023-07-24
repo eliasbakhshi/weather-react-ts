@@ -2,19 +2,21 @@
   display: flex;
   flex-direction: column;
   width: 25rem;
-  height: 3rem;
-  z-index: 10;
+  z-index: 25;
   position: relative;
   align-items: center;
-  box-shadow: $shadow;
+  box-shadow: $shadow-white;
+  background-color: white;
+
   > form {
     width: 100%;
-    height: 100%;
+    height: 3rem;
     display: flex;
     border-radius: $radius;
     input[type="text"] {
-      text-indent: 0.5rem;
+      text-indent: 1rem;
       width: 85%;
+      font-size: 1rem;
       border: 0;
       &:focus, :active, :focus-visible {
         outline: none;
@@ -26,9 +28,23 @@
     }
   }
   > .result {
+    background-color: white;
     position: absolute;
     top: 3rem;
+    left: 0;
     width: 100%;
-    background-color: white;
+    // height: 20rem;
+    &.show {
+      height: 20rem;
+    }
+    p {
+      height: 3rem;
+      padding: 1rem;
+      margin: 0;
+      font-size: 1rem;
+      &:hover {
+        background-color: rgb(224, 224, 224);
+      }
+    }
   }
 }

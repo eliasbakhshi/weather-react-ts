@@ -23,6 +23,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <InfoContext.Provider value={value}>
         <div className='App'>
+          <div id="overlay"></div>
           <Home></Home>
         </div>
       </InfoContext.Provider>

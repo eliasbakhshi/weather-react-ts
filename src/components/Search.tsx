@@ -4,14 +4,13 @@ import { InfoContext } from "../context/InfoContext";
 import { useGetCity } from "../hooks/useGetCity";
 import searchIcon from "../img/search.svg";
 
-// TODO: - Put info of the first searched city in the search bar with a the name as placeholder
 // TODO: - Optimize if there is any thing to show and then show something because of the render issue.
 
 export const Search = () => {
   let { cities, setCities, cityResult, setCityResult }: ContextValues = useContext(InfoContext);
   const searchedCity = useRef({} as HTMLInputElement);
   const resultList = useRef({} as HTMLDivElement);
-
+  const overlay = document.querySelector("#overlay");
   let { data: searchedCityData } = useGetCity(searchedCity, setCityResult);
 
   // Add city to the list.
@@ -35,6 +34,7 @@ export const Search = () => {
     let data = JSON.parse(decodeURIComponent(test.toString()));
     addCity(data);
     setCityResult([]);
+    overlay?.classList.remove("show")
     searchedCity.current.value = "";
   };
 
@@ -45,9 +45,21 @@ export const Search = () => {
     searchedCityData.refetch()
   };
 
+  // Hide the overlay when user clicks outside of the search bar
+  const hideOverlay = (e: Event) => {
+    let target = e.target as HTMLParagraphElement
+    target?.classList.remove("show");
+    overlay?.removeEventListener("click", hideOverlay)
+  }
+  // Active search bar
+  const activeSearch = (e: React.MouseEvent<HTMLFormElement>) => {
+    overlay?.classList.add("show");
+    overlay?.addEventListener("click", hideOverlay)
+  }
+
   return (
     <div className='search'>
-      <form onSubmit={submitForm}>
+      <form onSubmit={submitForm} onClick={activeSearch}>
         <input type='text' ref={searchedCity} placeholder='City Name' name='city' onChange={() => searchedCityData.refetch()} />
         <img src={searchIcon} onClick={() => searchedCityData.refetch()} />
       </form>
