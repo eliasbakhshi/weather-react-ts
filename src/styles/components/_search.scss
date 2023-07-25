@@ -13,6 +13,7 @@
     height: 3rem;
     display: flex;
     border-radius: $radius;
+    box-shadow: $shadow;
     input[type="text"] {
       text-indent: 1rem;
       width: 85%;

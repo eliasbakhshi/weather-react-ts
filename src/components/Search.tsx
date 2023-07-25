@@ -34,7 +34,7 @@ export const Search = () => {
     let data = JSON.parse(decodeURIComponent(test.toString()));
     addCity(data);
     setCityResult([]);
-    overlay?.classList.remove("show")
+    overlay?.classList.remove("show");
     searchedCity.current.value = "";
   };
 
@@ -42,20 +42,22 @@ export const Search = () => {
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     searchedCity.current.value = cityResult[0].name;
-    searchedCityData.refetch()
+    searchedCityData.refetch();
   };
 
   // Hide the overlay when user clicks outside of the search bar
   const hideOverlay = (e: Event) => {
-    let target = e.target as HTMLParagraphElement
+    let target = e.target as HTMLParagraphElement;
     target?.classList.remove("show");
-    overlay?.removeEventListener("click", hideOverlay)
-  }
+    overlay?.removeEventListener("click", hideOverlay);
+    setCityResult([]);
+    searchedCity.current.value = "";
+  };
   // Active search bar
   const activeSearch = (e: React.MouseEvent<HTMLFormElement>) => {
     overlay?.classList.add("show");
-    overlay?.addEventListener("click", hideOverlay)
-  }
+    overlay?.addEventListener("click", hideOverlay);
+  };
 
   return (
     <div className='search'>

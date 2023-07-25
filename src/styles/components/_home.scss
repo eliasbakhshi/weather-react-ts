@@ -11,12 +11,14 @@
     align-items: center;
     justify-content: center;
   }
-  .cities {
+  > .cities {
     display: flex;
-    height: 90%;
+    // height: 90vh;
     width: 100%;
-    justify-content: space-evenly;
-
+    justify-items: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
   }
 }
 

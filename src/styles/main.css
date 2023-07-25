@@ -47,14 +47,16 @@ body {
   align-items: center;
   justify-content: center;
 }
-.home .cities {
+.home > .cities {
   display: flex;
-  height: 90%;
   width: 100%;
-  justify-content: space-evenly;
+  justify-items: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
 }
 
-.card {
+.city {
   padding: 1em;
   background-color: #f0f0f0;
   border-radius: 5px;
@@ -62,8 +64,10 @@ body {
   height: 10rem;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
-.card > img {
+.city > img {
   height: 3rem;
   width: 3rem;
   padding: 0.5rem;
@@ -73,11 +77,11 @@ body {
   display: flex;
   background-position: center center;
 }
-.card .temperature {
+.city .temperature {
   font-size: 2.5rem;
   margin: 1.2rem 0;
 }
-.card .city-name {
+.city .city-name {
   font-size: 0.8em;
   opacity: 0.7;
 }
@@ -97,6 +101,7 @@ body {
   height: 3rem;
   display: flex;
   border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
 }
 .search > form input[type=text] {
   text-indent: 1rem;

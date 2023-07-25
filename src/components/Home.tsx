@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Card } from "./Card";
+import { City } from "./City";
 import { InfoContext } from "../context/InfoContext";
 import { ContextValues } from "../components/Types";
 import { useGetWeather } from "../hooks/useGetWeather";
@@ -16,7 +16,7 @@ export const Home = () => {
       </div>
       <div className='cities'>
         {info?.map((item) => {
-          return item?.id ? <Card data={item} key={item.id.toString()} /> : "";
+          return item?.id ? <City data={item} key={item.id.toString()} /> : "";
         })}
       </div>
     </main>

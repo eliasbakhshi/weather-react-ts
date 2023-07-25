@@ -1,4 +1,4 @@
-.card {
+.city {
   padding: 1em;
   background-color: $main-color;
   border-radius: $radius;
@@ -6,6 +6,9 @@
   height: 10rem;
   box-shadow: $shadow;
   position: relative;
+  display: flex;
+  flex-direction: column;
+
   > img {
     height: 3rem;
     width: 3rem;
