@@ -6,7 +6,8 @@ import "./styles/main.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-
+import { Routes, Route } from "react-router-dom";
+import { CityDetails } from "./components/CityDetails";
 
 const queryClient = new QueryClient();
 
@@ -23,8 +24,11 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <InfoContext.Provider value={value}>
         <div className='App'>
-          <div id="overlay"></div>
-          <Home></Home>
+          <div id='overlay'></div>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='details' element={<CityDetails />} />
+          </Routes>
         </div>
       </InfoContext.Provider>
       <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
