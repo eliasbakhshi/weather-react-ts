@@ -9,6 +9,8 @@ export const Home = () => {
   let { info }: ContextValues = useContext(InfoContext);
   useGetWeather();
 
+  console.log({info});
+  
   return (
     <main className='container home'>
       <div className='header'>

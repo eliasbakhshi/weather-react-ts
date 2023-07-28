@@ -29,7 +29,5 @@ export const useGetCity = (cityName: React.MutableRefObject<HTMLInputElement>, s
     enabled: false,
   });
 
-  console.log("res", res);
-
   return { data: res };
 };

@@ -10,14 +10,29 @@
   flex-direction: column;
 
   > img {
-    height: 3rem;
-    width: 3rem;
-    padding: .5rem;
-    position: absolute;
-    top: .5rem;
-    right: .5rem;
-    display: flex;
-    background-position: center center;
+      height: 3rem;
+      width: 3rem;
+      padding: .5rem;
+      position: absolute;
+      top: .5rem;
+      right: .5rem;
+      display: flex;
+      cursor: pointer;
+      background-position: center center;
+      z-index: 5;
+  }
+  > a {
+    > img {
+      height: 3rem;
+      width: 3rem;
+      padding: .5rem;
+      position: absolute;
+      bottom: .5rem;
+      right: .5rem;
+      display: flex;
+      background-position: center center;
+      z-index: 5;
+    }
   }
   .temperature {
     font-size: 2.5rem;

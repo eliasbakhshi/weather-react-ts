@@ -19,25 +19,24 @@ const getData = (cityInfo: CityList | null) => {
 };
 
 // Get the weather information from the API.
-export const useGetWeather = () : void => {
+export const useGetWeather = (): void => {
   // console.log("cityInfo", cityInfo);
   let { setInfo, cities }: ContextValues = useContext(InfoContext);
 
   let status = "";
   let weatherInfo = useQueries(
     cities.map((info) => {
-    return {
-      queryKey: ["weather-data", info?.name],
+      return {
+        queryKey: ["weather-data", info?.name],
         queryFn: () => getData(info),
         enabled: !!info?.id,
-        cacheTime: 1
+        cacheTime: 1,
       };
     })
   );
 
   // Return just the information the is needed.
   let res = weatherInfo.map((weather) => {
-    console.log("weather", weather);
 
     status = weather.status;
     if (status === "success") {

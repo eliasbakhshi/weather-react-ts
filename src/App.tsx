@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { Routes, Route } from "react-router-dom";
 import { CityDetails } from "./components/CityDetails";
+import { Error404 } from "./components/Eror404";
 
 const queryClient = new QueryClient();
 
@@ -27,7 +28,8 @@ function App() {
           <div id='overlay'></div>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='details' element={<CityDetails />} />
+            <Route path='details/:id' element={<CityDetails />} />
+            <Route path='*' element={<Error404 />} />
           </Routes>
         </div>
       </InfoContext.Provider>

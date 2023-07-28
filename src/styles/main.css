@@ -75,7 +75,20 @@ body {
   top: 0.5rem;
   right: 0.5rem;
   display: flex;
+  cursor: pointer;
   background-position: center center;
+  z-index: 5;
+}
+.city > a > img {
+  height: 3rem;
+  width: 3rem;
+  padding: 0.5rem;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  background-position: center center;
+  z-index: 5;
 }
 .city .temperature {
   font-size: 2.5rem;
