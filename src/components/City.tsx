@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 // TODO: - Delete option can be added to the card
 export const City = <T extends WeatherInfo>({ data }: { data: T }) => {
-  let { setInfo, setCities }: ContextValues = useContext(InfoContext);
+  let { setCitiesInfo, setCities }: ContextValues = useContext(InfoContext);
 
   const removeCity = (e: React.MouseEvent<HTMLParagraphElement>) => {
     let target = e.target as HTMLParagraphElement;
@@ -17,7 +17,7 @@ export const City = <T extends WeatherInfo>({ data }: { data: T }) => {
       return preCities.filter((city) => city.id !== Number(target.id));
     });
     // Remove the city from the view list
-    setInfo((preInfo) => {
+    setCitiesInfo((preInfo) => {
       return preInfo.filter((info) => info?.id !== Number(target.id));
     });
   };

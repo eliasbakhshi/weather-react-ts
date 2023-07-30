@@ -3,8 +3,8 @@ export type SetAction<T> = React.Dispatch<React.SetStateAction<T>>;
 export type StorageType<T> = [T | [], React.Dispatch<React.SetStateAction<T | []>>];
 
 export type ContextValues<> = {
-  info: (null | WeatherInfo)[];
-  setInfo: SetAction<(null | WeatherInfo)[]>;
+  citiesInfo: (null | WeatherInfo)[];
+  setCitiesInfo: SetAction<(null | WeatherInfo)[]>;
   cityResult: CityData[];
   setCityResult: SetAction<CityData[]>;
   cities: CityList[];

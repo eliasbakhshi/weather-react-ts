@@ -8,18 +8,18 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { Routes, Route } from "react-router-dom";
 import { CityDetails } from "./components/CityDetails";
-import { Error404 } from "./components/Eror404";
+import { Error404 } from "./components/Error404";
 
 const queryClient = new QueryClient();
 
 function App() {
   console.log("--------------------------------------------------");
-  const [info, setInfo] = useState<(null | WeatherInfo)[]>([]);
+  const [citiesInfo, setCitiesInfo] = useState<(null | WeatherInfo)[]>([]);
   const [cityResult, setCityResult] = useState<CityData[]>([]);
   const [cities, setCities] = useLocalStorage<CityList[]>("cities", []);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  let value = { cities, setCities, info, cityResult, setCityResult, setInfo, loading, setLoading, error, setError };
+  let value = { cities, setCities, citiesInfo, setCitiesInfo, cityResult, setCityResult, loading, setLoading, error, setError };
 
   return (
     <QueryClientProvider client={queryClient}>
