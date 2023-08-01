@@ -3,12 +3,10 @@ export type SetAction<T> = React.Dispatch<React.SetStateAction<T>>;
 export type StorageType<T> = [T | [], React.Dispatch<React.SetStateAction<T | []>>];
 
 export type ContextValues<> = {
-  citiesInfo: (null | WeatherInfo)[];
-  setCitiesInfo: SetAction<(null | WeatherInfo)[]>;
   cityResult: CityData[];
   setCityResult: SetAction<CityData[]>;
-  cities: CityList[];
-  setCities: SetAction<CityList[]>;
+  cities: (null | WeatherInfo)[];
+  setCities: SetAction<(null | WeatherInfo)[]>;
   loading: boolean;
   setLoading: SetAction<boolean>;
   error: string;
@@ -22,23 +20,27 @@ export type CityCoordinate = {
   longitude: number;
 };
 
-export type WeatherInfo = {
+export type CityList = {
   id: number;
-  name: String;
+  name: string;
   latitude: number;
   longitude: number;
-  timezone: String;
-  hourly: {
+};
+
+export type WeatherInfo = CityList & {
+  timezone?: String;
+  hourly?: {
     units: String;
     temperature_2m: number[][];
-    time: String[];
+    time?: String[];
   };
-  daily: {
+  daily?: {
     units: String;
     temperature_2m: number[][];
     time: String[];
   };
 };
+
 export type CityData = {
   id: number;
   name: string;
@@ -49,9 +51,3 @@ export type CityData = {
   admin1?: string;
 };
 
-export type CityList = {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-};

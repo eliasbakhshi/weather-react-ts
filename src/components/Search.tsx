@@ -16,7 +16,7 @@ export const Search = () => {
   // Add city to the list.
   const addCity = (newCity: CityList) => {
     if (newCity.hasOwnProperty("id")) {
-      if (!cities?.find((city) => city.id === newCity.id)) {
+      if (!cities?.find((city) => city?.id === newCity.id)) {
         setCities([...cities, newCity]);
       } else {
         alert("The city already exists in the list.");

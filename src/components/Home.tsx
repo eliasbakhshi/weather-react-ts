@@ -6,10 +6,11 @@ import { useGetWeather } from "../hooks/useGetWeather";
 import { Search } from "./Search";
 
 export const Home = () => {
-  let { citiesInfo }: ContextValues = useContext(InfoContext);
+  let { cities }: ContextValues = useContext(InfoContext);
   useGetWeather();
 
-  console.log({citiesInfo});
+  console.log({cities});
+
 
   return (
     <main className='container home'>
@@ -17,7 +18,7 @@ export const Home = () => {
         <Search />
       </div>
       <div className='cities'>
-        {citiesInfo?.map((item) => {
+        {cities?.map((item) => {
           return item?.id ? <City data={item} key={item.id.toString()} /> : "";
         })}
       </div>

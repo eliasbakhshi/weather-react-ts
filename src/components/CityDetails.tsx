@@ -7,16 +7,18 @@ import { useGetWeather } from "../hooks/useGetWeather";
 
 export const CityDetails = () => {
   const { id } = useParams();
-  let { citiesInfo, cities }: ContextValues = useContext(InfoContext);
-  
+  let { cities }: ContextValues = useContext(InfoContext);
+
   useGetWeather();
 
-  let cityInfo2 = citiesInfo.filter((city) => city?.id === Number(id));
+  let cityInfo = cities.filter((city) => city?.id === Number(id))[0];
 
-  console.log({cityInfo2, cities, citiesInfo});
+  console.log({cityInfo, cities });
 
-  return <div className='container'>
-    <h1>{`City Details for ${cityInfo2}`}</h1>
-
+  return <div className='city-details'>
+    <div className="city-info"></div>
+    <div className="days"></div>
+    <div className="hours"></div>
+    <h1>{`City Details for ${cityInfo?.name}`}</h1>
   </div>;
 };

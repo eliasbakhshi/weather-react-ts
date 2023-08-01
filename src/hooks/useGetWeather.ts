@@ -21,7 +21,7 @@ const getData = (cityInfo: CityList | null) => {
 // Get the weather information from the API.
 export const useGetWeather = (): void => {
   // console.log("cityInfo", cityInfo);
-  let { setCitiesInfo, cities }: ContextValues = useContext(InfoContext);
+  let { cities, setCities }: ContextValues = useContext(InfoContext);
 
   let status = "";
   let weatherInfo = useQueries(
@@ -63,7 +63,7 @@ export const useGetWeather = (): void => {
 
   useEffect(() => {
     if (status === "success") {
-      setCitiesInfo(res);
+      setCities(res);
     }
   }, [status]);
 };
