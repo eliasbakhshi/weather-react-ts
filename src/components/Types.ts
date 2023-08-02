@@ -28,16 +28,16 @@ export type CityList = {
 };
 
 export type WeatherInfo = CityList & {
-  timezone?: String;
+  timezone?: string;
   hourly?: {
-    units: String;
-    temperature_2m: number[][];
-    time?: String[];
+    units: string;
+    temperature_2m: number[];
+    time: string[];
   };
   daily?: {
-    units: String;
-    temperature_2m: number[][];
-    time: String[];
+    units: string;
+    temperature_2m: number[];
+    time?: string[];
   };
 };
 

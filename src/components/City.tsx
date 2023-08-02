@@ -18,14 +18,14 @@ export const City = <T extends WeatherInfo>({ data }: { data: T }) => {
     });
   };
   return (
-    <article className='city'>
+    <article className='c-city'>
       <img src={deleteIcon} className='delete' alt='Delete city' onClick={removeCity} id={data.id.toString()} />
       <Link to={`details/${data.id}`}>
         <img src={detailsIcon} className='details' alt={`Details of ${data.name}`} />
       </Link>
       {data.name && (
         <p className='temperature'>
-          {Math.floor(Number(data.daily?.temperature_2m[0][0])).toString()} {data.daily?.units}
+          {Math.floor(Number(data.daily?.temperature_2m[0])).toString()} {data.daily?.units}
         </p>
       )}
       {data.name && <p className='city-name'>{data.name}</p>}

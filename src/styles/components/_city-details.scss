@@ -1,3 +1,39 @@
-.city-details {
-  
+.c-city-details {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  .days {
+    display: flex;
+    overflow-x: auto;
+    padding: 1em;
+    background-color: $main-color;
+    border-radius: $radius;
+    width: 25rem;
+    box-shadow: $shadow;
+    > div {
+      padding: 1rem;
+      border-radius: $radius;
+      &.selected {
+        background-color: aqua;
+      }
+    }
+  }
+  .hours {
+    display: flex;
+    overflow-x: auto;
+    padding: 1em;
+    background-color: $main-color;
+    border-radius: $radius;
+    width: 25rem;
+    box-shadow: $shadow;
+    > div {
+      border-radius: $radius;
+      padding: 1rem;
+    }
+  }
 }

@@ -38,6 +38,8 @@ export const useGetWeather = (): void => {
   // Return just the information the is needed.
   let res = weatherInfo.map((weather) => {
     status = weather.status;
+    console.log({});
+
     if (status === "success") {
       return {
         id: Number(weather.data?.id),
@@ -47,13 +49,13 @@ export const useGetWeather = (): void => {
         timezone: String(weather.data?.timezone),
         hourly: {
           units: String(weather.data?.hourly_units.temperature_2m),
-          temperature_2m: Array(weather.data?.hourly.temperature_2m),
-          time: Array(weather.data?.hourly.time),
+          temperature_2m:weather.data?.hourly.temperature_2m,
+          time: weather.data?.hourly.time,
         },
         daily: {
           units: String(weather.data?.daily_units.temperature_2m_max),
-          temperature_2m: Array(weather.data?.daily.temperature_2m_max),
-          time: Array(weather.data?.daily.time),
+          temperature_2m: weather.data?.daily.temperature_2m_max,
+          time: weather.data?.daily.time,
         },
       };
     } else {

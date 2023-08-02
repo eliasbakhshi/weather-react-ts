@@ -60,7 +60,7 @@ export const Search = () => {
   };
 
   return (
-    <div className='search'>
+    <div className='c-search'>
       <form onSubmit={submitForm} onClick={activeSearch}>
         <input type='text' ref={searchedCity} placeholder='City Name' name='city' onChange={() => searchedCityData.refetch()} />
         <img src={searchIcon} onClick={() => searchedCityData.refetch()} />

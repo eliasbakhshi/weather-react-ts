@@ -13,15 +13,15 @@ export const Home = () => {
 
 
   return (
-    <main className='container home'>
-      <div className='header'>
+    <main className='container c-home'>
+      <section className='header'>
         <Search />
-      </div>
-      <div className='cities'>
+      </section>
+      <section className='cities'>
         {cities?.map((item) => {
           return item?.id ? <City data={item} key={item.id.toString()} /> : "";
         })}
-      </div>
+      </section>
     </main>
   );
 };
