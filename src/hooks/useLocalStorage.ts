@@ -5,8 +5,8 @@ export const useLocalStorage = <T>(key: string, initialValue?: T): StorageType<T
   const [state, setState] = useState<T | []>(() => {
     if (!initialValue) return [];
     try {
-      const value = localStorage.getItem(key);
-      return value ? JSON.parse(value) : initialValue;
+      let value = localStorage.getItem(key);
+      return value ?JSON.parse(value).filter((info : any)=> info !== null) : initialValue;
     } catch (err) {
       return initialValue;
     }

@@ -21,16 +21,12 @@ export const CityDetails = () => {
   const { id } = useParams();
   let { cities }: ContextValues = useContext(InfoContext);
   const [selectedDay, setSelectedDay] = useState(getFullDate);
+  let cityInfo = cities.filter((city) => city?.id === Number(id))[0];
 
   const changeDay = (e: React.MouseEvent) => {
     let target = e.target as HTMLDivElement;
     setSelectedDay(target.id);
-    console.log(target.id);
   };
-
-  useGetWeather();
-
-  let cityInfo = cities.filter((city) => city?.id === Number(id))[0];
 
   return (
     <main className='c-city-details'>

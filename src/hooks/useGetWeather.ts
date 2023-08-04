@@ -38,9 +38,8 @@ export const useGetWeather = (): void => {
   // Return just the information the is needed.
   let res = weatherInfo.map((weather) => {
     status = weather.status;
-    console.log({});
-
     if (status === "success") {
+      console.log({weather});
       return {
         id: Number(weather.data?.id),
         name: String(weather.data?.name),
@@ -49,7 +48,7 @@ export const useGetWeather = (): void => {
         timezone: String(weather.data?.timezone),
         hourly: {
           units: String(weather.data?.hourly_units.temperature_2m),
-          temperature_2m:weather.data?.hourly.temperature_2m,
+          temperature_2m: weather.data?.hourly.temperature_2m,
           time: weather.data?.hourly.time,
         },
         daily: {
@@ -62,8 +61,13 @@ export const useGetWeather = (): void => {
       return null;
     }
   });
+  console.log({res, cities});
 
   useEffect(() => {
+    console.log("2");
+  console.log({res});
+
+
     if (status === "success") {
       setCities(res);
     }
