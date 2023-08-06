@@ -30,8 +30,8 @@ export const Search = () => {
   // Add city from the search result
   const addCitySearchResult = (e: React.MouseEvent<HTMLParagraphElement>) => {
     let target = e.target as HTMLParagraphElement;
-    let test = target?.dataset?.info !== undefined ? target.dataset.info : {};
-    let data = JSON.parse(decodeURIComponent(test.toString()));
+    let tempData = target?.dataset?.info !== undefined ? target.dataset.info : {};
+    let data = JSON.parse(decodeURIComponent(tempData.toString()));
     addCity(data);
     setCityResult([]);
     overlay?.classList.remove("show");
@@ -63,7 +63,7 @@ export const Search = () => {
     <div className='c-search'>
       <form onSubmit={submitForm} onClick={activeSearch}>
         <input type='text' ref={searchedCity} placeholder='City Name' name='city' onChange={() => searchedCityData.refetch()} />
-        <img src={searchIcon} onClick={() => searchedCityData.refetch()} />
+        <img src={searchIcon} onClick={() => searchedCityData.refetch()} alt="search city"/>
       </form>
       <div className='result' ref={resultList}>
         {cityResult

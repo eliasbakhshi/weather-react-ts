@@ -2,7 +2,6 @@ import { useQueries } from "react-query";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { InfoContext } from "../context/InfoContext";
-
 import { CityList, ContextValues } from "../components/Types";
 
 const getData = (cityInfo: CityList | null) => {
@@ -13,6 +12,8 @@ const getData = (cityInfo: CityList | null) => {
         ...info.data,
         id: Number(cityInfo.id),
         name: String(cityInfo.name),
+        latitude: Number(cityInfo.latitude),
+        longitude: Number(cityInfo.longitude),
       };
     });
   }
@@ -20,9 +21,9 @@ const getData = (cityInfo: CityList | null) => {
 
 // Get the weather information from the API.
 export const useGetWeather = (): void => {
-  // console.log("cityInfo", cityInfo);
   let { cities, setCities }: ContextValues = useContext(InfoContext);
 
+  let tempCities = cities;
   let status = "";
   let weatherInfo = useQueries(
     cities.map((info) => {
@@ -36,12 +37,12 @@ export const useGetWeather = (): void => {
   );
 
   // Return just the information the is needed.
-  let res = weatherInfo.map((weather) => {
+  weatherInfo.forEach((weather) => {
     status = weather.status;
     if (status === "success") {
-      console.log({weather});
-      return {
-        id: Number(weather.data?.id),
+      let cityID = tempCities.findIndex((city) => city?.id === weather.data.id);
+      tempCities[cityID] = {
+        id: Number(tempCities[cityID]?.id),
         name: String(weather.data?.name),
         latitude: Number(weather.data?.latitude),
         longitude: Number(weather.data?.longitude),
@@ -57,19 +58,13 @@ export const useGetWeather = (): void => {
           time: weather.data?.daily.time,
         },
       };
-    } else {
-      return null;
     }
   });
-  console.log({res, cities});
 
   useEffect(() => {
-    console.log("2");
-  console.log({res});
-
-
     if (status === "success") {
-      setCities(res);
+      setCities(tempCities);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 };
