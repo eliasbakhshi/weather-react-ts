@@ -16,7 +16,7 @@ export const Home = () => {
       </section>
       <section className='cities'>
         {cities?.map((item) => {
-          return item?.id ? <City data={item} key={item.id.toString()} /> : "";
+          return item?.daily ? <City data={item} key={item.id.toString()} /> : "";
         })}
       </section>
     </main>

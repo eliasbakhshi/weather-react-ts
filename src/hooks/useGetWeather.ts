@@ -31,7 +31,7 @@ export const useGetWeather = (): void => {
         queryKey: ["weather-data", info?.name],
         queryFn: () => getData(info),
         enabled: !!info?.id,
-        cacheTime: 1,
+        cacheTime: 1000,
       };
     })
   );
