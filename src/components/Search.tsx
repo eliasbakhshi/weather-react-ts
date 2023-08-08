@@ -4,6 +4,8 @@ import { InfoContext } from "../context/InfoContext";
 import { useGetCity } from "../hooks/useGetCity";
 import searchIcon from "../img/search.svg";
 
+// TODO: Press esc should exit user from overlay and search area.
+
 export const Search = () => {
   let { cities, setCities, cityResult, setCityResult }: ContextValues = useContext(InfoContext);
   const searchedCity = useRef({} as HTMLInputElement);
@@ -19,16 +21,13 @@ export const Search = () => {
       } else {
         alert("The city already exists in the list.");
       }
-      return true;
-    } else {
-      return false;
     }
   };
 
-  // Add city from the search result
-  const addCitySearchResult = (e: React.MouseEvent<HTMLLIElement>) => {
-    let target = e.target as HTMLLIElement;
-    let tempData = target?.dataset?.info !== undefined ? target.dataset.info : {};
+  // Add city from the search result.
+  const addCitySearchResult = () => {
+    let selectedRes = resultList.current.querySelector(".selected") as HTMLLIElement;
+    let tempData = selectedRes?.dataset?.info !== undefined ? selectedRes.dataset.info : {};
     let data = JSON.parse(decodeURIComponent(tempData.toString()));
     addCity(data);
     setCityResult([]);
@@ -36,29 +35,29 @@ export const Search = () => {
     searchedCity.current.value = "";
   };
 
-  // When form submits
+  // When form submits.
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    searchedCity.current.value = cityResult[0].name;
-    searchedCityData.refetch();
+    addCitySearchResult();
   };
 
-  // Hide the overlay when user clicks outside of the search bar
+  // Hide the overlay when user clicks outside of the search bar.
   const hideOverlay = (e: Event) => {
     let target = e.target as HTMLLIElement;
     target?.classList.remove("show");
     overlay?.removeEventListener("click", hideOverlay);
     setCityResult([]);
     searchedCity.current.value = "";
+    document.querySelector(".c-search")?.classList.remove("focus");
   };
-  // Add navigation throw search result by arrow up and down
-  const upOrDown = (e: KeyboardEvent) => {
+  // Add navigation throw search result by arrow up and down.
+  const upOrDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-      // Prevent from going to the beginning/end of the text
+      // Prevent from going to the beginning/end of the text.
       e.preventDefault();
     }
-    let selectedResult = resultList.current.querySelector("li.selected");
 
+    let selectedResult = resultList.current.querySelector("li.selected");
     if (!selectedResult && e.key === "ArrowDown" && resultList.current.hasChildNodes()) {
       // Add .selected to the first result to begin with when user clicks down
       resultList.current.firstElementChild?.classList.add("selected");
@@ -73,24 +72,31 @@ export const Search = () => {
     }
   };
 
-  // Active search bar
+  // Active search bar.
   const activeSearch = (e: React.MouseEvent<HTMLFormElement>) => {
+    document.querySelector(".c-search")?.classList.add("focus");
     overlay?.classList.add("show");
     overlay?.addEventListener("click", hideOverlay);
   };
 
-  useEffect(() => {
-    searchedCity.current?.addEventListener("keydown", upOrDown);
-    return () => searchedCity.current?.removeEventListener("keydown", upOrDown);
-  }, []);
-  
+  // Change the selected result when mouse is hovered on it.
+  const selectResultOnHover = (e: React.MouseEvent<HTMLUListElement, MouseEvent>): void => {
+    if (resultList.current.hasChildNodes()) {
+      resultList.current.querySelectorAll("li").forEach((li) => {
+        li.classList.remove("selected");
+      });
+      let target = e.target as HTMLLIElement;
+      target.classList.add("selected");
+    }
+  };
+
   return (
-    <div className='c-search'>
+    <div className={cityResult?.length ? "c-search have-result" : "c-search"}>
       <form onSubmit={submitForm} onClick={activeSearch}>
-        <input type='text' ref={searchedCity} placeholder='City Name' name='city' autoComplete='off' onChange={() => searchedCityData.refetch()} />
+        <input type='text' ref={searchedCity} placeholder='City Name' name='city' autoComplete='off' onChange={() => searchedCityData.refetch()} onKeyDown={upOrDown} />
         <img src={searchIcon} onClick={() => searchedCityData.refetch()} alt='search city' />
       </form>
-      <ul className='result' ref={resultList}>
+      <ul className={cityResult?.length ? "result have-result" : "result"} ref={resultList} onMouseOver={selectResultOnHover}>
         {cityResult
           ? cityResult.map((res: CityData) => {
               let dataInfo = encodeURIComponent(
@@ -102,7 +108,7 @@ export const Search = () => {
                 })
               );
               return (
-                <li onClick={addCitySearchResult} data-info={dataInfo} key={res["id"]}>
+                <li onClick={addCitySearchResult} data-name={res["name"]} data-info={dataInfo} key={res["id"]}>
                   {res["name"]}, {res["state"]}, {res["country"]}
                 </li>
               );
